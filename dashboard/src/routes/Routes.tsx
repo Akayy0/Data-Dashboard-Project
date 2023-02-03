@@ -11,9 +11,9 @@ function Routes() {
             children: [
                 { path: '/home', element: <Home /> },
                 { path: '/teste', element: <Home /> },
+                { path: '/mapas', element: <Home /> }
             ]
         },
-        { path: "/", element: <Navigate to='/home' /> },    
         { path: "/", element: <Navigate to='/home' /> },
         { path: "*", element: <Navigate to='/home' /> }
     ]);
