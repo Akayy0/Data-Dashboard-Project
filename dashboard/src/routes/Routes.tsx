@@ -10,7 +10,7 @@ function Routes() {
             element: <MainLayout />,
             children: [
                 { path: '/home', element: <Home /> },
-                { path: '/teste', element: <Home /> },
+                { path: '/city/:cityName', element: <Home /> },
             ]
         },
         { path: "/", element: <Navigate to='/home' /> },    
