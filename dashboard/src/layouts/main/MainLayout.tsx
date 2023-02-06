@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { Header } from "../../components";
+import { Footer } from "../../components";
 
 export default function MainLayout() {
     return (
@@ -13,7 +14,9 @@ export default function MainLayout() {
                 </main>
             </div>
 
-            {/* <Footer /> */}
+            <div>
+                <Footer />
+            </div>
         </Box>
     )
 }
