@@ -34,9 +34,9 @@ export const HelperText = styled(Typography)(({ theme }) => ({
 
 export const FlexDiv = styled("div")(() => ({
     display: "flex",
-    width: "15%",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: '0px 20px',
     marginTop: 40
 }));
 

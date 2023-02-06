@@ -2,7 +2,6 @@ import { FooterContainer, FlexDiv, DefaultText, HelperText, Title, FlexCollumDiv
 import { useNavigate } from "react-router-dom";
 
 function Footer() {
-
     const navigate = useNavigate();
 
     function redirectRoute(route: string) {
@@ -11,10 +10,9 @@ function Footer() {
 
     return (
         <FooterContainer>
-
-            <FlexCollumDiv >
+            <FlexCollumDiv>
                 <Title>
-                    DATA MINAS:
+                    DATA MINAS
                 </Title>
                 <HelperText>
                     Explore, compare, e conheça mais de Minas Gerais
