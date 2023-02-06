@@ -1,18 +1,23 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { Header } from "../../components";
+import { Footer } from "../../components";
+import { Box } from "./MainLayout.style";
 
 export default function MainLayout() {
     return (
         <Box>
             <div>
-                {/* <Header /> */}
-                <Typography variant="overline">MAIN LAYOUT</Typography>
+                <Header />
+
                 <main>
                     <Outlet />
                 </main>
             </div>
 
-            {/* <Footer /> */}
+            
+            <Footer />
+            
         </Box>
     )
 }

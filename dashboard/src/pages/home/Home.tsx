@@ -63,10 +63,6 @@ function Home() {
 
 	return (
 		<Wrapper>
-			<TextStyled>
-				Dashboard
-			</TextStyled>
-
 			<Container maxWidth="lg">
 				{error ? (
 					<Subtitle variant="h4" color="red">Ocorreu um erro ao buscar os dados</Subtitle>
