@@ -29,6 +29,8 @@ function Footer() {
                     </DefaultText>
             </FlexColumn>
         </FooterContainer>
+
+        
     );
 }
 

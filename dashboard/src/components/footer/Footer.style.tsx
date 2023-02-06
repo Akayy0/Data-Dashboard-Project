@@ -1,4 +1,5 @@
 import {Box, Typography, styled, Button} from "@mui/material";
+import { color } from "@mui/system";
 
 export const FooterContainer = styled(Box)(() => ({
     display: "flex",
@@ -7,8 +8,8 @@ export const FooterContainer = styled(Box)(() => ({
     height: "100%",
     padding: "0!important",
     margin: 0,
-    background: "#FF6347",
-    borderRadius: "5px"
+    borderRadius: "5px",
+    backgroundColor: "#add8e6",
 }));
 
 export const TextStyled = styled(Typography)(({ theme }) => ({
@@ -26,7 +27,7 @@ export const TextStyled = styled(Typography)(({ theme }) => ({
 export const DefaultText = styled(Button)(() => ({
     fontSize: 16,
     fontWeight: 700,
-    width:"75%"
+    width:"75%",
 }));
 
 export const FlexDiv = styled("div")(() => ({
@@ -40,6 +41,5 @@ export const FlexColumn = styled("div")(() => ({
     display: "flex",
     width: "20%",
     textalign:"left",
-    color: "black",
-    flexdirection: "column"
+    
 }));

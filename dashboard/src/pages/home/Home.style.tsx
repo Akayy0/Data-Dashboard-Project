@@ -2,7 +2,7 @@ import { styled, Typography, Container } from "@mui/material";
 
 export const Wrapper = styled(Container)(() => ({
     minWidth: "100%",
-    height: "100vh",
+    height: "100%",
     padding: "0 !important",
     margin: 0,
 
