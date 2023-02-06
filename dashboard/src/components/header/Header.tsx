@@ -8,7 +8,7 @@ function Header() {
 
     function redirectRoute(route: string) {
         navigate(`/${route}`);
-    } 
+    }
 
     return (
         <HeaderContainer>
@@ -16,10 +16,10 @@ function Header() {
                 <DefaultText variant="text" onClick={() => redirectRoute('mapas')}>
                     Mapas
                 </DefaultText>
-                <ZoomOutMapIcon fontSize="large"/>
+                <ZoomOutMapIcon fontSize="large" color="primary" />
                 <DefaultText variant="text" onClick={() => redirectRoute('sobre')}>
                     Sobre
-                </DefaultText>      
+                </DefaultText>
             </FlexDiv>
         </HeaderContainer>
 

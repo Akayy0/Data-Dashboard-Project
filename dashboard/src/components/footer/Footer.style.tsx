@@ -1,45 +1,48 @@
-import {Box, Typography, styled, Button} from "@mui/material";
-import { color } from "@mui/system";
+import { Box, Typography, styled } from "@mui/material";
 
-export const FooterContainer = styled(Box)(() => ({
+export const FooterContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
-    padding: "0!important",
-    margin: 0,
-    borderRadius: "5px",
-    backgroundColor: "#add8e6",
+    flexDirection: "column",
+    padding: 40,
+    backgroundColor: theme.palette.background.paper
 }));
 
-export const TextStyled = styled(Typography)(({ theme }) => ({
-    fontSize: "48px",
-    fontWeight: "bold",
-    width: "100%",
-    textAlign: "center",
-    paddingTop: 40,
-    paddingBottom: 40,
-    [theme.breakpoints.down(340)]: {
-        fontSize: "32px"
+export const DefaultText = styled(Typography)(({ theme }) => ({
+    fontSize: 20,
+    fontWeight: 700,
+    color: theme.palette.primary.main,
+    transition: "0.2s",
+    cursor: "pointer",
+    ':hover': {
+        color: theme.palette.primary.contrastText,
     }
 }));
 
-export const DefaultText = styled(Button)(() => ({
-    fontSize: 16,
+export const Title = styled(Typography)(({ theme }) => ({
+    fontSize: 32,
     fontWeight: 700,
-    width:"75%",
+    color: theme.palette.primary.main
+}));
+
+export const HelperText = styled(Typography)(({ theme }) => ({
+    fontSize: 16,
+    fontWeight: 400,
+    color: theme.palette.secondary.main
 }));
 
 export const FlexDiv = styled("div")(() => ({
     display: "flex",
+    width: "15%",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "30%"
+    marginTop: 40
 }));
 
-export const FlexColumn = styled("div")(() => ({
+export const FlexCollumDiv = styled("div")(() => ({
     display: "flex",
-    width: "20%",
-    textalign:"left",
-    
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column"
 }));
