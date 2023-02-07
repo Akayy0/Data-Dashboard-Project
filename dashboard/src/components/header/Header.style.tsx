@@ -21,3 +21,9 @@ export const FlexDiv = styled("div")(() => ({
     alignItems: "center",
     width: "15%"
 }));
+
+export const Logo = styled("img")(() => ({
+    height: 40,
+    objectFit: "contain",
+    cursor: "pointer"
+}));
