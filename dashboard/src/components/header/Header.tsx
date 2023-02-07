@@ -1,6 +1,6 @@
-import { DefaultText, FlexDiv, HeaderContainer } from "./Header.style";
-import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
+import { DefaultText, FlexDiv, HeaderContainer, Logo } from "./Header.style";
 import { useNavigate } from "react-router-dom";
+import { LogoTriangulo } from "../../assets";
 
 function Header() {
 
@@ -8,7 +8,7 @@ function Header() {
 
     function redirectRoute(route: string) {
         navigate(`/${route}`);
-    } 
+    }
 
     return (
         <HeaderContainer>
@@ -16,10 +16,10 @@ function Header() {
                 <DefaultText variant="text" onClick={() => redirectRoute('mapas')}>
                     Mapas
                 </DefaultText>
-                <ZoomOutMapIcon fontSize="large"/>
+                <Logo src={LogoTriangulo} alt="logo-dataminas" onClick={() => redirectRoute("home") } />
                 <DefaultText variant="text" onClick={() => redirectRoute('sobre')}>
                     Sobre
-                </DefaultText>      
+                </DefaultText>
             </FlexDiv>
         </HeaderContainer>
 

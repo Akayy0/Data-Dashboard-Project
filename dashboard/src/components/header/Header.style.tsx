@@ -1,17 +1,18 @@
-import {Box, Button, styled} from "@mui/material";
+import { Box, Button, styled } from "@mui/material";
 
-export const DefaultText = styled(Button)(() => ({
-    fontSize: 16,
-    fontWeight: 700
-}));
-
-export const HeaderContainer = styled(Box)(() => ({
+export const HeaderContainer = styled(Box)(({ theme }) => ({
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
-    padding: "0!important",
-    margin: 0
+    backgroundColor: theme.palette.background.paper,
+    padding: 6
+}));
+
+export const DefaultText = styled(Button)(() => ({
+    fontSize: 16,
+    fontWeight: 700,
+    color: "#F2F2F2"
 }));
 
 export const FlexDiv = styled("div")(() => ({
@@ -19,4 +20,10 @@ export const FlexDiv = styled("div")(() => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "15%"
+}));
+
+export const Logo = styled("img")(() => ({
+    height: 40,
+    objectFit: "contain",
+    cursor: "pointer"
 }));

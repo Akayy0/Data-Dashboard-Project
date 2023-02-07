@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { Header } from "../../components";
 import { Footer } from "../../components";
@@ -9,15 +8,11 @@ export default function MainLayout() {
         <Box>
             <div>
                 <Header />
-
                 <main>
                     <Outlet />
                 </main>
             </div>
-
-            
             <Footer />
-            
         </Box>
     )
 }

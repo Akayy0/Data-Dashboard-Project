@@ -7,7 +7,7 @@ import { Treemap } from "d3plus-react";
 
 import { IAutocomplete, IStates } from "./Home.interface";
 
-import { Subtitle, TextStyled, Title, Wrapper } from "./Home.style";
+import { Subtitle, Title, Wrapper } from "./Home.style";
 
 function Home() {
 

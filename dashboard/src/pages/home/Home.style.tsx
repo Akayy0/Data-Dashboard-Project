@@ -4,8 +4,7 @@ export const Wrapper = styled(Container)(() => ({
     minWidth: "100%",
     height: "100%",
     padding: "0 !important",
-    margin: 0,
-
+    marginTop: 32
 }));
 
 export const TextStyled = styled(Typography)(({ theme }) => ({
