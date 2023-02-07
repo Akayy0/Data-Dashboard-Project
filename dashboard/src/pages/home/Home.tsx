@@ -8,6 +8,7 @@ import { Treemap } from "d3plus-react";
 import { IAutocomplete, IStates } from "./Home.interface";
 
 import { Subtitle, Title, Wrapper } from "./Home.style";
+import { Cards } from "../../components";
 
 function Home() {
 
@@ -99,6 +100,9 @@ function Home() {
 
 							</Grid>
 						</Grid>
+						<Cards title="Minas Gerais é baum" image="https://direcional.com.br/wp-content/uploads/2021/08/minas-gerais.jpg"/>
+						<Cards title="Minas Gerais" image="https://direcional.com.br/wp-content/uploads/2021/08/minas-gerais.jpg"/>
+						<Cards title="Minas" image="https://direcional.com.br/wp-content/uploads/2021/08/minas-gerais.jpg"/>
 					</React.Fragment>
 				)}
 
