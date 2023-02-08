@@ -1,5 +1,5 @@
-import { CardMedia, Card, CardActionArea, CardContent } from "@mui/material";
-import { CardTitle } from "./Cards.style";
+import { CardMedia, CardActionArea, CardContent } from "@mui/material";
+import { CardStyled, CardTitle } from "./Cards.style";
 
 interface ICard{
     title: string;
@@ -8,7 +8,7 @@ interface ICard{
 
 function Cards({title, image}:ICard) {
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <CardStyled>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -22,7 +22,7 @@ function Cards({title, image}:ICard) {
                     </CardTitle>
                 </CardContent>
             </CardActionArea>
-        </Card>
+        </CardStyled>
     );
 }
 
