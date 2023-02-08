@@ -1,7 +1,7 @@
 import { FooterContainer, FlexDiv, DefaultText, HelperText, Title, FlexCollumDiv, LogoImg, LogoDiv, InputDiv} from "./Footer.style";
 import { useNavigate } from "react-router-dom";
 import { IconButton, InputAdornment, TextField, useTheme } from "@mui/material";
-import { LogoDataViva, LogoMinas, LogoDataMinas } from "../../assets";
+import { LogoDataViva, LogoMinas, LogoDataMinas, LogoDataMinasBlack } from "../../assets";
 import MailIcon from '@mui/icons-material/Mail';
 
 function Footer() {
@@ -60,7 +60,7 @@ function Footer() {
             <LogoDiv>
                 <LogoImg src={LogoDataViva}/>
                 <LogoImg src={LogoMinas}/>
-                <LogoImg src={LogoDataMinas}/>
+                <LogoImg src={LogoDataMinasBlack}/>
             </LogoDiv>
 
         </FooterContainer>
