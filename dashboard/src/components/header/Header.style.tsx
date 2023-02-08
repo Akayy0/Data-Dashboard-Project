@@ -6,7 +6,8 @@ export const HeaderContainer = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: theme.palette.background.paper,
-    padding: 6
+    padding: 6,
+    height: 60
 }));
 
 export const DefaultText = styled(Button)(() => ({

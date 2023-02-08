@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Autocomplete, Box, Container, Grid, IconButton, TextField, Typography, useTheme } from "@mui/material";
+import { Autocomplete, Box, Container, Grid, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Search } from "@mui/icons-material";
 // @ts-ignore
 import { Treemap } from "d3plus-react";
 
+import { Cards } from "../../components";
+import { LogoDataMinasWhite } from "../../assets";
 import { IAutocomplete, IStates } from "./Home.interface";
 
-import { Subtitle, Title, Wrapper } from "./Home.style";
-import { Cards } from "../../components";
+import { LogoImage, Subtitle, Wrapper, BoxImage, SearchContainer, SearchButton, AutoCompleteTextField } from "./Home.style";
 
 function Home() {
 	const theme = useTheme();
@@ -73,51 +74,60 @@ function Home() {
 
 	return (
 		<Wrapper>
-			<Container maxWidth="lg">
-				{error ? (
-					<Subtitle variant="h4" color="red">Ocorreu um erro ao buscar os dados</Subtitle>
-				) : (
-					<React.Fragment>
-						<Grid container spacing={2}>
-							<Grid item xs={12} sm={6}>
-								<Title variant="h2">Data Minas</Title>
-								<Typography variant="body1">O seu portal de dados públicos de Minas Gerais</Typography>
+			{error ? (
+				<Subtitle variant="h4" color="red">Ocorreu um erro ao buscar os dados</Subtitle>
+			) : (
+				<React.Fragment>
+					<BoxImage>
+						<SearchContainer maxWidth="lg">
+							<Grid container spacing={2} alignItems="center" display="flex">
+								<Grid item xs={12} sm={6}>
+									<LogoImage src={LogoDataMinasWhite} alt="DataMinas logo"/>
+									<Typography variant="h5" color={theme.palette.primary.main}>O seu portal de dados públicos de Minas Gerais</Typography>
+								</Grid>
+								<Grid item xs={12} sm={6}>
+									<Box display="flex" alignItems="center" justifyContent="center">
+										<Autocomplete
+											id="cities"
+											size="small"
+											sx={{ 
+												backgroundColor: theme.palette.background.default,
+												borderTopLeftRadius: 8, 
+												borderBottomLeftRadius: 8
+											}}
+											fullWidth
+											disablePortal
+											options={cities}
+											onChange={(event, newValue) => {
+												if (newValue) setSelectedCity(newValue)
+											}}
+											renderOption={(props, option) => {
+												const { name } = option;
+												return (
+													<span {...props} style={{ backgroundColor: theme.palette.background.default }}>
+														{name}
+													</span>
+												);
+											}}
+											getOptionLabel={(option) => option.name}
+											renderInput={(params) => <AutoCompleteTextField {...params} label="Escolha um município" InputLabelProps={{style: { color: theme.palette.info.dark }}} />}
+										/>
+
+										<SearchButton onClick={handleCity}>
+											<Search />
+										</SearchButton>
+									</Box>
+
+									<Box mt={2}>
+										<Treemap config={methods} />
+									</Box>
+
+								</Grid>
 							</Grid>
-							<Grid item xs={12} sm={6}>
-								<Box display="flex" alignItems="center" justifyContent="center">
-									<Autocomplete
-										id="cities"
-										sx={{ marginRight: 2, backgroundColor: theme.palette.background.default }}
-										fullWidth
-										disablePortal
-										options={cities}
-										onChange={(event, newValue) => {
-											if (newValue) setSelectedCity(newValue)
-										}}
-										renderOption={(props, option) => {
-											const { name } = option;
-											return (
-												<span {...props} style={{ backgroundColor: theme.palette.background.default }}>
-													{name}
-												</span>
-											);
-										}}
-										getOptionLabel={(option) => option.name}
-										renderInput={(params) => <TextField {...params} label="Escolha um município" />}
-									/>
+						</SearchContainer>
+					</BoxImage>
 
-									<IconButton onClick={handleCity}>
-										<Search />
-									</IconButton>
-								</Box>
-
-								<Box mt={2}>
-									<Treemap config={methods} />
-								</Box>
-
-							</Grid>
-						</Grid>
-
+					<Container maxWidth="lg">
 						<Typography variant="h3" textAlign="center" mt={1} mb={1}>Pontos Turísticos</Typography>
 						<Grid container spacing={2} mb={2}>
 							{cardsInfo.map((card, index) => 
@@ -129,10 +139,9 @@ function Home() {
 								</Grid>
 							)}
 						</Grid>
-					</React.Fragment>
-				)}
-
-			</Container>
+					</Container>
+				</React.Fragment>
+			)}
 		</Wrapper>
 	);
 }
