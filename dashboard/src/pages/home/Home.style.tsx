@@ -37,8 +37,7 @@ export const Title = styled(Typography)(({ theme }) => ({
 }));
 
 export const AutoCompleteTextField = styled(TextField)(() => ({
-    borderTopLeftRadius: 0, 
-    borderBottomLeftRadius: 0
+    border: 0
 }));
 
 export const SearchContainer = styled(Container)(() => ({
