@@ -1,4 +1,4 @@
-import { styled, Typography, Container, Box, IconButton, TextField, Autocomplete } from "@mui/material";
+import { styled, Typography, Container, Box, IconButton, TextField } from "@mui/material";
 import { OuroPreto } from "../../assets";
 
 export const Wrapper = styled(Container)(() => ({
@@ -58,10 +58,10 @@ export const LogoImage = styled('img')(() => ({
 }));
 
 export const SearchButton = styled(IconButton)(({ theme }) => ({
-    height: "100%", 
-    borderTopLeftRadius: 0, 
-    borderBottomLeftRadius: 0, 
-    borderTopRightRadius: 8, 
-    borderBottomRightRadius: 8, 
+    height: "100%",
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
     backgroundColor: theme.palette.primary.contrastText
 }));

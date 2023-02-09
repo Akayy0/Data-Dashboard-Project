@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Autocomplete, Box, Container, Divider, Grid, IconButton, Paper, Typography, useTheme } from "@mui/material";
+import { Autocomplete, Box, Container, Grid, IconButton, Paper, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Search, Menu, Directions } from "@mui/icons-material";
+import { Search, Menu } from "@mui/icons-material";
 // @ts-ignore
 import { Treemap } from "d3plus-react";
 
@@ -9,7 +9,7 @@ import { Cards } from "../../components";
 import { LogoDataMinasWhite } from "../../assets";
 import { IAutocomplete, IStates } from "./Home.interface";
 
-import { LogoImage, Subtitle, Wrapper, BoxImage, SearchContainer, SearchButton, AutoCompleteTextField } from "./Home.style";
+import { LogoImage, Subtitle, Wrapper, BoxImage, SearchContainer, AutoCompleteTextField } from "./Home.style";
 
 function Home() {
 	const theme = useTheme();
