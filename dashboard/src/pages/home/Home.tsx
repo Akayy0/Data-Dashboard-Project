@@ -3,7 +3,7 @@ import { Autocomplete, Box, Container, Grid, IconButton, Paper, Typography, useT
 import { useNavigate } from "react-router-dom";
 import { Search, Menu } from "@mui/icons-material";
 // @ts-ignore
-import { Treemap, Radar, LinePlot, Donut } from "d3plus-react";
+import { LinePlot } from "d3plus-react";
 
 import { Cards } from "../../components";
 import { LogoDataMinasWhite } from "../../assets";
@@ -93,7 +93,7 @@ function Home() {
 
 	function handleCity() {
 		if (selectedCity) {
-			navigate(`/city/${selectedCity.label}`);
+			navigate(`/city/${selectedCity.name}/${selectedCity.label}`);
 		} else {
 			alert("Selecione um município para pesquisar.");
 		}
