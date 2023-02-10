@@ -6,6 +6,8 @@ import '@fontsource/roboto/700.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+// @ts-ignore
+import {D3plusContext} from "d3plus-react";
 
 import { ThemeProvider } from './context/theme/Theme';
 
@@ -13,10 +15,16 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const globalConfig = {
+  
+};
+
 root.render(
   <React.Fragment>
     <ThemeProvider>
-      <App />
+      <D3plusContext.Provider value={globalConfig}>
+        <App />
+      </D3plusContext.Provider>
     </ThemeProvider>
   </React.Fragment>
 );
