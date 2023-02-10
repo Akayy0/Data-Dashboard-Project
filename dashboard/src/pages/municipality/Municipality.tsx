@@ -18,13 +18,16 @@ function Municipality() {
             await fetchData(database);
 
             if (index === databases.length - 1) {
+                console.log("dwadawd")
                 setLoading(false);
             }
         });
+
+
     }, [params])
 
     async function fetchData(database: string) {
-        await fetch(`http://api.dataviva.info/metadata/municipality/?municipality=${params.cityId}`)
+        await fetch(`http://api.dataviva.info/${database}/municipality/?municipality=${params.cityId}`)
             .then((res) => {
                 if (res.status === 200 && res.ok) {
                     return res.json();
@@ -41,7 +44,7 @@ function Municipality() {
 
     return (
         <>
-            {true ? (
+            {loading ? (
                 <CircularProgress color='secondary'/>
             )
                 :
