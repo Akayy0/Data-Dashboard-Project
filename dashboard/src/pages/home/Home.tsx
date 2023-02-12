@@ -63,6 +63,7 @@ function Home() {
 
 	const [cities, setCities] = useState<Array<IAutocomplete>>([]);
 	const [selectedCity, setSelectedCity] = useState<IAutocomplete>();
+	const [municipalityLoading, setMunicipalityLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 	const [openLabel, setOpenLabel] = useState<boolean>(false);
 
@@ -88,6 +89,8 @@ function Home() {
 				setCities(cityArr);
 			}).catch((error) => {
 				setError(true);
+			}).finally(() => {
+				setMunicipalityLoading(false);
 			})
 	}, []);
 
@@ -124,6 +127,7 @@ function Home() {
 												borderBottomLeftRadius: 8
 											}}
 											fullWidth
+											disabled={municipalityLoading}
 											forcePopupIcon={false}
 											disablePortal
 											options={cities}
