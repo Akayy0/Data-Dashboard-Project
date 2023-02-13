@@ -1,6 +1,6 @@
 import { styled, Typography, Container, Box, CircularProgress } from "@mui/material";
 
-export const Wrapper = styled(Container)(({ theme }) => ({
+export const Wrapper = styled(Container)(() => ({
     minWidth: "100%",
     height: "100%",
     padding: "0 !important"
@@ -49,6 +49,7 @@ export const ContetentContainer = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "center",
     width: "100%",
+    padding: 12,
     backgroundPosition:"center", 
     backgroundRepeat: "no-repeat", 
     backgroundSize: "cover", 
@@ -68,4 +69,14 @@ export const CityTitle = styled(Typography)(({ theme }) => ({
     fontWeight: 700,
     color: theme.palette.primary.main,
     textShadow: "0 2px 6px #000"
+}));
+
+export const GraphContainer = styled(Container)(({ theme }) => ({
+    backgroundColor: theme.palette.info.dark,
+    padding: 12,
+}));
+
+export const GraphText = styled(Typography)(({ theme }) => ({
+    color: theme.palette.primary.main,
+    textAlign: "center"
 }));
