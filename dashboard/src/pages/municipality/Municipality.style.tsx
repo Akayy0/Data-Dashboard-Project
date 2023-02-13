@@ -16,6 +16,23 @@ export const LoadingContainer = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.info.main
 }));
 
+export const StateCard = styled(Box)(() => ({
+    display: "flex",
+    borderRadius: '3px',
+    marginTop: 24,
+    marginBottom: 48, 
+    backgroundColor: "#879bf5",
+    padding: "5px 10px 5px 8px",
+    textShadow: 'none',
+    justifyContent: "center",
+    alignItems: "center"
+}));
+
+export const StateText = styled(Typography)(() => ({
+    fontWeight: 500,
+    color: "black"
+}));
+
 export const LoadingElement = styled(CircularProgress)(({ theme }) => ({
     color: theme.palette.primary.contrastText
 }));
@@ -29,8 +46,8 @@ export const LoadingText = styled(Typography)(({ theme }) => ({
 
 export const ContetentContainer = styled(Box)(({ theme }) => ({
     display: "flex",
-    justifyContent: "center",
-    height: "80vh",
+    flexDirection: "column",
+    alignItems: "center",
     width: "100%",
     backgroundPosition:"center", 
     backgroundRepeat: "no-repeat", 
@@ -38,8 +55,16 @@ export const ContetentContainer = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.info.main
 }));
 
+export const InfoText = styled(Typography)(({ theme }) => ({
+    textShadow: "0 2px 6px #000",
+    fontWeight: 700,
+    color: theme.palette.primary.main,
+    marginBottom: 24
+}))
+
 export const CityTitle = styled(Typography)(({ theme }) => ({
     fontSize: 48,
+    marginTop: 42,
     fontWeight: 700,
     color: theme.palette.primary.main,
     textShadow: "0 2px 6px #000"
