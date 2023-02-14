@@ -8,7 +8,7 @@ export const defaultTheme: PaletteOptions = {
     },
     primary: {
         main: "#F6F6F6",
-        contrastText: '#ef6145'
+        contrastText: '#be0000'
     },
     secondary: {
         main: "#a5abb6",
