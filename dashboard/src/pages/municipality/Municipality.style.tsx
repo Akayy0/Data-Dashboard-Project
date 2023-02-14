@@ -81,7 +81,23 @@ export const GraphContainer = styled(Box)(({ theme }) => ({
     padding: 12
 }));
 
+export const TitleGraphText = styled(Typography)(({ theme }) => ({
+    color: theme.palette.primary.main,
+    fontSize: 48,
+    marginBottom: 32,
+    textShadow: "0 2px 6px #000",
+    textDecoration: "underline",
+    letterSpacing: "0.5px",
+    [theme.breakpoints.down("md")]: {
+        fontSize: 36
+    },
+    [theme.breakpoints.down("sm")]: {
+        fontSize: 28
+    }
+}));
+
 export const GraphText = styled(Typography)(({ theme }) => ({
     color: theme.palette.primary.main,
+    marginBottom: 16,
     textAlign: "center"
 }));

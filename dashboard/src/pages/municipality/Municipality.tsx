@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import PlaceIcon from '@mui/icons-material/Place';
 import { useParams } from "react-router-dom";
-import { Container, Grid, useTheme } from '@mui/material';
+import { Container, Divider, Grid, useTheme } from '@mui/material';
 // @ts-ignore
 import { Treemap, BarChart, Pie, LinePlot } from "d3plus-react";
 
 import { InfoCard } from './components';
 import { getUrls } from '../../modules';
 
-import { CityTitle, ContetentContainer, GraphContainer, GraphText, InfoText, LoadingContainer, LoadingElement, LoadingText, StateCard, StateText, Wrapper } from './Municipality.style';
+import { CityTitle, ContetentContainer, GraphContainer, GraphText, InfoText, LoadingContainer, LoadingElement, LoadingText, StateCard, StateText, TitleGraphText, Wrapper } from './Municipality.style';
 
 function Municipality() {
     const params = useParams();
@@ -31,6 +31,9 @@ function Municipality() {
     const [schools, setSchools] = useState<string>("");
     const [healthProfessionals, setHealthProfessionals] = useState<string>("");
 
+    const [expDataYearArray, setExpDataYearArray] = useState<any[]>([]);
+    const [impDataYearArray, setImpDataYearArray] = useState<any[]>([]);
+
     useEffect(() => {
         if (!params) return;
 
@@ -40,24 +43,42 @@ function Municipality() {
 
     function fetchData() {
 
+
         Promise.all(urls)
             .then(resp => Promise.all(resp.map(r => r.json())))
             .then(result => {
-                setBackgroundImage(result.at(-6).photos[Math.floor(Math.random() * (29) + 1)].src.original);
-                result.splice(result.length - 6, 1)
-                
-                console.log(result)
+
+                const imageObjectIndex: any = result.findIndex((item) => item.photos);
+                setBackgroundImage(result[imageObjectIndex].photos[Math.floor(Math.random() * (29) + 1)].src.original);
+                result.splice(imageObjectIndex, 1);
+
+                console.log(result);
+
                 const industryArray = _.take(result[5].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const ocupationArray = _.take(result[6].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const studentsArray = _.take(result[7].data.sort((a: any, b: any) => b[3] - a[3]), 10);
                 const employeeStudentsArray = _.take(result[8].data.sort((a: any, b: any) => b[6] - a[6]), 10);
-
                 const imp = result[9].data.filter((item: any) => item[0] === 'import')
                 const exp = result[9].data.filter((item: any) => item[0] === 'export')
 
+                const impAndExpEvolve = result[10].data.filter((item: any) => item[1] >= 2015);
+
+                const impEvolve = impAndExpEvolve.filter((item: any) => item[0] === 'import').sort((a: any, b: any) => b[1] - a[1]);
+                const expEvolve = impAndExpEvolve.filter((item: any) => item[0] === 'export').sort((a: any, b: any) => b[1] - a[1]);
+
+                let impEvolveArray: any[] = [];
+                let expEvolveArray: any[] = [];
+
+                impEvolve.forEach((item: any) => {
+                    impEvolveArray.push({ id: "Valor em Reais", x: item[1], y: item[2] })
+                })
+                expEvolve.forEach((item: any) => {
+                    expEvolveArray.push({ id: "Valor em Reais", x: item[1], y: item[2] })
+                })
+
                 const exportArray = _.take(exp.sort((a: any, b: any) => b[3] - a[3]), 5);
                 const importArray = _.take(imp.sort((a: any, b: any) => b[3] - a[3]), 5);
-                
+
                 getIndustryNames(industryArray);
                 getOcupationNames(ocupationArray);
                 getStudents(studentsArray);
@@ -67,6 +88,9 @@ function Municipality() {
                 setStudents(result[1]?.data[0][2] ?? "");
                 setSchools(result[1]?.data[0][5] ?? "");
                 setHealthProfessionals(result[3]?.data[0][1] ?? "");
+                setImpDataYearArray(impEvolveArray);
+                setExpDataYearArray(expEvolveArray);
+
             })
             .finally(() => {
                 setLoading(false);
@@ -92,20 +116,19 @@ function Municipality() {
         let formatedImpArray: any[] = [];
 
         fetch("http://api.dataviva.info/metadata/product")
-        .then((res) => res.json())
-        .then((response) => {
-            expArray.forEach((item: any) => {
-                formatedExpArray.push({id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3]})
-            });
-            impArray.forEach((item: any) => {
-                formatedImpArray.push({id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3]})
-            });
-    
-            setExpDataArray(formatedExpArray);
-            setImpDataArray(formatedImpArray);
-        });
-    }
+            .then((res) => res.json())
+            .then((response) => {
+                expArray.forEach((item: any) => {
+                    formatedExpArray.push({ id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3] })
+                });
+                impArray.forEach((item: any) => {
+                    formatedImpArray.push({ id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3] })
+                });
 
+                setExpDataArray(formatedExpArray);
+                setImpDataArray(formatedImpArray);
+            });
+    }
 
     function getOcupationNames(dataArray: any[]) {
         let formatedDataArray: any[] = [];
@@ -185,23 +208,27 @@ function Municipality() {
                                 </Container>
                             </ContetentContainer>
 
+                            <Divider color={theme.palette.background.paper} />
+
                             <GraphContainer>
-                                <GraphText variant="h4">Gráficos</GraphText>
+                                <TitleGraphText >Informações gerais sobre o município</TitleGraphText>
 
                                 <Grid container rowSpacing={4} maxWidth="xl" justifyContent="center">
                                     <Grid item xs={12}>
-                                        <GraphText variant="h6">Porcentagem de empregos por indústria - 2017</GraphText>
 
+                                        <GraphText variant="h6">Porcentagem de empregos por indústria - 2017</GraphText>
                                         <Treemap config={{
+
                                             data: industryDataArray,
                                             groupBy: 'id',
                                             sum: 'value',
                                             legend: false,
                                             height: 400
                                         }} />
+
                                     </Grid>
 
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} >
                                         <GraphText variant="h6">Porcentagem de pessoas empregadas por categoria - 2017</GraphText>
 
                                         <Treemap config={{
@@ -231,7 +258,7 @@ function Municipality() {
                                             data: employeeStudentsArray,
                                             groupBy: 'id',
                                             sum: 'value',
-                                            height: 350,
+                                            height: 400,
                                         }} />
                                     </Grid>
 
@@ -254,6 +281,26 @@ function Municipality() {
                                             groupBy: 'id',
                                             height: 400,
                                             barPadding: 4
+                                        }} />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <GraphText variant='h6' width="100%">Evolução das importações desde 2015</GraphText>
+
+                                        <LinePlot config={{
+                                            data: impDataYearArray,
+                                            groupBy: 'id',
+                                            height: 400
+                                        }} />
+
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <GraphText variant='h6' width="100%">Evolução das exportações desde 2015</GraphText>
+                                        <LinePlot config={{
+                                            data: expDataYearArray,
+                                            groupBy: 'id',
+                                            height: 400
                                         }} />
                                     </Grid>
                                 </Grid>
