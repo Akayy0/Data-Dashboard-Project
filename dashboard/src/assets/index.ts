@@ -1,5 +1,5 @@
-import LogoMinas from './logoDataViva.png';
-import LogoDataViva from './logoMG.png';
+import LogoMinas from './logoMG.png';
+import LogoDataViva from './logoDataViva.png';
 import LogoDataMinas from './dataminas-logo-preto.png';
 import LogoTriangulo from './triangulos-logo.png';
 import OuroPreto from './ouro-preto.png';
