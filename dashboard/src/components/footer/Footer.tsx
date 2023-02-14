@@ -30,7 +30,7 @@ function Footer() {
                 <DefaultText onClick={() => redirectRoute('mapas')}>
                     Mapas
                 </DefaultText>
-                <DefaultText onClick={() => redirectRoute('sobre')}>
+                <DefaultText onClick={() => redirectRoute('about')}>
                     Sobre
                 </DefaultText>
             </FlexDiv>

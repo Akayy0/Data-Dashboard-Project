@@ -12,7 +12,8 @@ export const defaultTheme: PaletteOptions = {
     },
     secondary: {
         main: "#a5abb6",
-        contrastText: '#a7b5cc'
+        contrastText: '#a7b5cc',
+        dark: "#141B2E"
     },
     info: {
         main: '#13223A',
