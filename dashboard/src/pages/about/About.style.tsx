@@ -21,16 +21,6 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.default
 }));
 
-export const TextDiv = styled("div")(({ theme }) => ({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: '0px 20px',
-    backgroundColor: theme.palette.background.default,
-    width: "100%",
-}))
-
 export const TextTitle = styled(Typography)(({ theme }) => ({
     fontSize: 30,
     fontWeight: 700,
@@ -48,16 +38,6 @@ export const TextAbout = styled(Typography)(({ theme }) => ({
     [theme.breakpoints.down(340)]: {
         fontSize: "32px"
     }
-}));
-
-export const LogoDiv = styled("div")(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: '0px 20px',
-    backgroundColor: theme.palette.background.default,
-    width: "100%",
-    marginTop: 40
 }));
 
 export const LogoImg = styled("img")(() => ({
