@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import PlaceIcon from '@mui/icons-material/Place';
 import { useParams } from "react-router-dom";
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, useTheme } from '@mui/material';
 // @ts-ignore
 import { Treemap, BarChart, Pie, LinePlot } from "d3plus-react";
 
@@ -13,6 +13,7 @@ import { CityTitle, ContetentContainer, GraphContainer, GraphText, InfoText, Loa
 
 function Municipality() {
     const params = useParams();
+    const theme = useTheme();
 
     const urls = getUrls(params.cityId ?? "");
 
@@ -20,6 +21,8 @@ function Municipality() {
     const [industryDataArray, setIndustryDataArray] = useState<any[]>([]);
     const [ocupationDataArray, setOcupationDataArray] = useState<any[]>([]);
     const [studentsDataArray, setStudentsDataArray] = useState<any[]>([]);
+    const [expDataArray, setExpDataArray] = useState<any[]>([]);
+    const [impDataArray, setImpDataArray] = useState<any[]>([]);
 
     const [backgroundImage, setBackgroundImage] = useState<string>("");
 
@@ -39,16 +42,26 @@ function Municipality() {
         Promise.all(urls)
             .then(resp => Promise.all(resp.map(r => r.json())))
             .then(result => {
-                setBackgroundImage(result.at(-4).photos[Math.floor(Math.random() * (29) + 1)].src.original);
-                result.splice(result.length - 4, 1)
+                setBackgroundImage(result.at(-5).photos[Math.floor(Math.random() * (29) + 1)].src.original);
+                result.splice(result.length - 5, 1)
 
                 const industryArray = _.take(result[5].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const ocupationArray = _.take(result[6].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const studentsArray = _.take(result[7].data.sort((a: any, b: any) => b[3] - a[3]), 10);
 
+                const imp = result[8].data.filter((item: any) => item[0] === 'import')
+                const exp = result[8].data.filter((item: any) => item[0] === 'export')
+                const exportArray = _.take(exp.sort((a: any, b: any) => b[3] - a[3]), 5);
+                const importArray = _.take(imp.sort((a: any, b: any) => b[3] - a[3]), 5);
+                
+
+                console.log(result)
+                //const studentsArray = _.take(result[8].data.sort((a: any, b: any) => b[3] - a[3]), 10);
+
                 getIndustryNames(industryArray);
                 getOcupationNames(ocupationArray);
                 getStudents(studentsArray);
+                getImportsAndExports(importArray, exportArray);
 
                 setStudents(result[1]?.data[0][2] ?? "");
                 setSchools(result[1]?.data[0][5] ?? "");
@@ -72,6 +85,26 @@ function Municipality() {
             setIndustryDataArray(formatedDataArray);
         })
     }
+
+    function getImportsAndExports(impArray: any[], expArray: any[]) {
+        let formatedExpArray: any[] = [];
+        let formatedImpArray: any[] = [];
+
+        fetch("http://api.dataviva.info/metadata/product")
+        .then((res) => res.json())
+        .then((response) => {
+            expArray.forEach((item: any) => {
+                formatedExpArray.push({id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3]})
+            });
+            impArray.forEach((item: any) => {
+                formatedImpArray.push({id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3]})
+            });
+    
+            setExpDataArray(formatedExpArray);
+            setImpDataArray(formatedImpArray);
+        });
+    }
+
 
     function getOcupationNames(dataArray: any[]) {
         let formatedDataArray: any[] = [];
@@ -120,20 +153,10 @@ function Municipality() {
                                     <StateText>Minas Gerais</StateText>
                                 </StateCard>
 
-                                <InfoText variant="overline" >Dados coletados no período de 2010 - 2017</InfoText>
+                                <InfoText variant="overline" >Dados coletados no período de 2008 - 2016</InfoText>
 
                                 <Container maxWidth="lg">
                                     <Grid container spacing={4}>
-                                        <Grid item xs={12} sm={4}>
-                                            <InfoCard cardTitle='Estudantes' cardText={students} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={4}>
-                                            <InfoCard cardTitle='Escolas' cardText={schools} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={4}>
-                                            <InfoCard cardTitle='Profissionais da saúde' cardText={healthProfessionals} />
-                                        </Grid>
-
                                         <Grid item xs={12} sm={4}>
                                             <InfoCard cardTitle='Estudantes' cardText={students} />
                                         </Grid>
@@ -147,10 +170,10 @@ function Municipality() {
                                 </Container>
                             </ContetentContainer>
 
-                            <GraphContainer maxWidth="xl">
+                            <GraphContainer>
                                 <GraphText variant="h4">Gráficos</GraphText>
 
-                                <Grid container rowSpacing={4}>
+                                <Grid container rowSpacing={4} columnSpacing={4}>
                                     <Grid item xs={12}>
                                         <GraphText variant="h6">Porcentagem de empregos por indústria - 2017</GraphText>
                                         
@@ -187,72 +210,25 @@ function Municipality() {
                                         }} />
                                     </Grid>
 
-                                    {/* <Grid item xs={12} sm={4}>
+                                    <Grid item xs={12} sm={6}>
+                                        <GraphText variant="h6">Maiores importações em reais</GraphText>
+
                                         <BarChart config={{
-                                            data: [
-                                                {
-                                                    id: 'alpha',
-                                                    x: 4,
-                                                    y: 7
-                                                },
-                                                {
-                                                    id: 'alpha',
-                                                    x: 5,
-                                                    y: 25
-                                                },
-                                                {
-                                                    id: 'alpha',
-                                                    x: 6,
-                                                    y: 13
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 4,
-                                                    y: 17
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 5,
-                                                    y: 8
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 6,
-                                                    y: 13
-                                                }
-                                            ],
+                                            data: impDataArray,
                                             groupBy: 'id',
-                                            height: 300
+                                            height: 400,
+                                            barPadding: 4
                                         }} />
                                     </Grid>
 
-                                    <Grid item xs={12} sm={4}>
-                                        <Pie config={{
-                                            data: [
-                                                {
-                                                    id: 'alpha',
-                                                    value: 29
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    value: 10
-                                                },
-                                                {
-                                                    id: 'gamma',
-                                                    value: 2
-                                                },
-                                                {
-                                                    id: 'delta',
-                                                    value: 29
-                                                },
-                                                {
-                                                    id: 'eta',
-                                                    value: 25
-                                                }
-                                            ],
+                                    <Grid item xs={12} sm={6}>
+                                        <GraphText variant="h6">Maiores exportações em reais</GraphText>
+
+                                        <BarChart config={{
+                                            data: expDataArray,
                                             groupBy: 'id',
-                                            sum: 'value',
-                                            height: 300
+                                            height: 400,
+                                            barPadding: 4
                                         }} />
                                     </Grid>
 
@@ -293,7 +269,7 @@ function Municipality() {
                                             groupBy: 'id',
                                             height: 300
                                         }} />
-                                    </Grid> */}
+                                    </Grid>
                                 </Grid>
                             </GraphContainer>
                         </>

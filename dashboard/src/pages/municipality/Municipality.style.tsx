@@ -74,6 +74,11 @@ export const CityTitle = styled(Typography)(({ theme }) => ({
 export const GraphContainer = styled(Container)(({ theme }) => ({
     backgroundColor: theme.palette.info.dark,
     padding: 12,
+    minWidth: "100%",
+    display: "flex",
+    flexDirection: "column",
+
+    justifyContent: "center"
 }));
 
 export const GraphText = styled(Typography)(({ theme }) => ({
