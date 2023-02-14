@@ -3,11 +3,11 @@ import { Autocomplete, Box, Container, Grid, IconButton, Paper, Typography, useT
 import { useNavigate } from "react-router-dom";
 import { Search, Menu } from "@mui/icons-material";
 // @ts-ignore
-import { Treemap } from "d3plus-react";
+import { LinePlot } from "d3plus-react";
 
 import { Cards } from "../../components";
 import { LogoDataMinasWhite } from "../../assets";
-import { IAutocomplete, IStates } from "./Home.interface";
+import { IApiResponse, IAutocomplete } from "./Home.interface";
 
 import { LogoImage, Subtitle, Wrapper, BoxImage, SearchContainer, AutoCompleteTextField } from "./Home.style";
 
@@ -16,16 +16,40 @@ function Home() {
 	const navigate = useNavigate();
 
 	const methods = {
-		groupBy: "id",
+		height: 400,
 		data: [
-			{ id: "alpha", value: 29 },
-			{ id: "bet?", value: 10 },
-			{ id: "be/", value: 10 },
-			{ id: "bea", value: 10 },
-
+			{
+				id: 'alpha',
+				x: 4,
+				y: 7
+			},
+			{
+				id: 'alpha',
+				x: 5,
+				y: 25
+			},
+			{
+				id: 'alpha',
+				x: 6,
+				y: 13
+			},
+			{
+				id: 'beta',
+				x: 4,
+				y: 17
+			},
+			{
+				id: 'beta',
+				x: 5,
+				y: 8
+			},
+			{
+				id: 'beta',
+				x: 6,
+				y: 13
+			}
 		],
-
-		size: (d: { value: any; }) => d.value
+		size: (d: any) => d.value
 	};
 
 	const cardsInfo = [
@@ -39,35 +63,40 @@ function Home() {
 
 	const [cities, setCities] = useState<Array<IAutocomplete>>([]);
 	const [selectedCity, setSelectedCity] = useState<IAutocomplete>();
+	const [municipalityLoading, setMunicipalityLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 	const [openLabel, setOpenLabel] = useState<boolean>(false);
 
 	useEffect(() => {
-		fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/31/distritos")
+		fetch("http://api.dataviva.info/metadata/municipality")
 			.then((res) => {
 				if (res.status === 200 && res.ok) {
 					return res.json();
 				} else {
 					return false
 				}
-			}).then((res: IStates[]) => {
+			}).then((res: any) => {
 				let cityArr: IAutocomplete[] = [];
 
-				res.forEach((city: IStates) => {
-					cityArr.push({ label: city.id, name: city.nome + " - " + city.municipio?.nome });
+				Object.keys(res).forEach((data: string) => {
+					const obj: IApiResponse = res[data];
+
+					if (obj.state.id === '31') {
+						cityArr.push({ label: Number(obj.id), name: obj.name_pt })
+					}
 				});
 
 				setCities(cityArr);
-
 			}).catch((error) => {
 				setError(true);
-				console.log(error);
+			}).finally(() => {
+				setMunicipalityLoading(false);
 			})
 	}, []);
 
 	function handleCity() {
 		if (selectedCity) {
-			navigate(`/city/${selectedCity.label}`);
+			navigate(`/city/${selectedCity.name}/${selectedCity.label}`);
 		} else {
 			alert("Selecione um município para pesquisar.");
 		}
@@ -81,7 +110,7 @@ function Home() {
 				<React.Fragment>
 					<BoxImage>
 						<SearchContainer maxWidth="lg">
-							<Grid container spacing={2} alignItems="center" display="flex">
+							<Grid container spacing={2} height="100%" display="flex">
 								<Grid item xs={12} sm={6}>
 									<LogoImage src={LogoDataMinasWhite} alt="DataMinas logo" />
 									<Typography variant="h5" color={theme.palette.primary.main}>O seu portal de dados públicos de Minas Gerais</Typography>
@@ -98,11 +127,15 @@ function Home() {
 												borderBottomLeftRadius: 8
 											}}
 											fullWidth
+											disabled={municipalityLoading}
 											forcePopupIcon={false}
 											disablePortal
 											options={cities}
 											onChange={(event, newValue) => {
-												if (newValue) setSelectedCity(newValue)
+												if (newValue) {
+													setOpenLabel(false);
+													setSelectedCity(newValue);
+												}
 											}}
 											renderOption={(props, option) => {
 												const { name } = option;
@@ -112,7 +145,7 @@ function Home() {
 													</span>
 												);
 											}}
-											getOptionLabel={(option) => option.name}
+											getOptionLabel={(option) => option.name ?? ''}
 											renderInput={(params) =>
 												<Paper
 													component="form"
@@ -130,9 +163,10 @@ function Home() {
 																}
 															}, flex: 1
 														}}
+														onClick={() => setOpenLabel(true)}
 														placeholder="Escolha um município"
 													/>
-													<IconButton type="button" sx={{ p: '10px', color: theme.palette.primary.contrastText }} aria-label="search">
+													<IconButton type="button" sx={{ p: '10px', color: theme.palette.primary.contrastText }} aria-label="search" onClick={handleCity}>
 														<Search />
 													</IconButton>
 												</Paper>
@@ -141,7 +175,7 @@ function Home() {
 									</Box>
 
 									<Box mt={2}>
-										<Treemap config={methods} />
+										<LinePlot config={methods} height="100%" />
 									</Box>
 
 								</Grid>
