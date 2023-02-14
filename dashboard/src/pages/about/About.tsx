@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { AboutContainer, LogoDiv, LogoImg, TextDiv, TextTitle, TextAbout, ContentContainer } from "./About.style";
-import { LogoDataViva, LogoDataMinasBlack, LogoMinas } from "../../assets";
-import { Grid, useTheme } from "@mui/material";
-
+import { AboutContainer, LogoImg, TextTitle, TextAbout, ContentContainer } from "./About.style";
+import { Grid } from "@mui/material";
+import { LogoDataMinasBlack, LogoDataViva, LogoMinas } from "../../assets";
 
 function About() {
-
-    const theme = useTheme();
 
     return (
         <AboutContainer>
