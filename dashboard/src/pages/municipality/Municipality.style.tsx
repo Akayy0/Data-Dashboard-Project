@@ -20,7 +20,7 @@ export const StateCard = styled(Box)(() => ({
     display: "flex",
     borderRadius: '3px',
     marginTop: 24,
-    marginBottom: 48, 
+    marginBottom: 48,
     backgroundColor: "#879bf5",
     padding: "5px 10px 5px 8px",
     textShadow: 'none',
@@ -50,9 +50,9 @@ export const ContetentContainer = styled(Box)(({ theme }) => ({
     alignItems: "center",
     width: "100%",
     padding: 12,
-    backgroundPosition:"center", 
-    backgroundRepeat: "no-repeat", 
-    backgroundSize: "cover", 
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
     backgroundColor: theme.palette.info.main
 }));
 
@@ -71,7 +71,11 @@ export const CityTitle = styled(Typography)(({ theme }) => ({
     textShadow: "0 2px 6px #000"
 }));
 
-export const GraphContainer = styled(Container)(({ theme }) => ({
+export const GraphContainer = styled(Box)(({ theme }) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
     backgroundColor: theme.palette.info.dark,
     padding: 12,
 }));

@@ -20,6 +20,7 @@ function Municipality() {
     const [industryDataArray, setIndustryDataArray] = useState<any[]>([]);
     const [ocupationDataArray, setOcupationDataArray] = useState<any[]>([]);
     const [studentsDataArray, setStudentsDataArray] = useState<any[]>([]);
+    const [employeeStudentsArray, setEmployeeStudentsArray] = useState<any[]>([]);
 
     const [backgroundImage, setBackgroundImage] = useState<string>("");
 
@@ -39,16 +40,17 @@ function Municipality() {
         Promise.all(urls)
             .then(resp => Promise.all(resp.map(r => r.json())))
             .then(result => {
-                setBackgroundImage(result.at(-4).photos[Math.floor(Math.random() * (29) + 1)].src.original);
-                result.splice(result.length - 4, 1)
-
+                setBackgroundImage(result.at(-5).photos[Math.floor(Math.random() * (29) + 1)].src.original);
+                result.splice(result.length - 5, 1)
                 const industryArray = _.take(result[5].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const ocupationArray = _.take(result[6].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const studentsArray = _.take(result[7].data.sort((a: any, b: any) => b[3] - a[3]), 10);
+                const employeeStudentsArray = _.take(result[8].data.sort((a: any, b: any) => b[6] - a[6]), 10);
 
                 getIndustryNames(industryArray);
                 getOcupationNames(ocupationArray);
                 getStudents(studentsArray);
+                getEmployeeStudents(employeeStudentsArray);
 
                 setStudents(result[1]?.data[0][2] ?? "");
                 setSchools(result[1]?.data[0][5] ?? "");
@@ -63,42 +65,56 @@ function Municipality() {
         let formatedDataArray: any[] = [];
 
         fetch("http://api.dataviva.info/metadata/industry_division")
-        .then((res) => res.json())
-        .then((response) => {
-            dataArray.forEach((item) => {
-                formatedDataArray.push({id: response[item[0]].name_pt, value: item[5]})
-            });
+            .then((res) => res.json())
+            .then((response) => {
+                dataArray.forEach((item) => {
+                    formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                });
 
-            setIndustryDataArray(formatedDataArray);
-        })
+                setIndustryDataArray(formatedDataArray);
+            })
     }
 
     function getOcupationNames(dataArray: any[]) {
         let formatedDataArray: any[] = [];
 
         fetch("http://api.dataviva.info/metadata/occupation_family")
-        .then((res) => res.json())
-        .then((response) => {
-            dataArray.forEach((item) => {
-                if(response[item[0]]) formatedDataArray.push({id: response[item[0]].name_pt, value: item[5]})
-            });
+            .then((res) => res.json())
+            .then((response) => {
+                dataArray.forEach((item) => {
+                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                });
 
-            setOcupationDataArray(formatedDataArray);
-        })
+                setOcupationDataArray(formatedDataArray);
+            })
     }
 
     function getStudents(dataArray: any[]) {
         let formatedDataArray: any[] = [];
 
         fetch("http://api.dataviva.info/metadata/sc_course")
-        .then((res) => res.json())
-        .then((response) => {
-            dataArray.forEach((item) => {
-                if(response[item[0]]) formatedDataArray.push({id: response[item[0]].name_pt, value: item[5]})
-            });
+            .then((res) => res.json())
+            .then((response) => {
+                dataArray.forEach((item) => {
+                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                });
 
-            setStudentsDataArray(formatedDataArray);
-        })
+                setStudentsDataArray(formatedDataArray);
+            })
+    }
+
+    function getEmployeeStudents(dataArray: any[]) {
+        let formatedDataArray: any[] = [];
+
+        fetch("http://api.dataviva.info/metadata/literacy")
+            .then((res) => res.json())
+            .then((response) => {
+                dataArray.forEach((item) => {
+                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                });
+
+                setEmployeeStudentsArray(formatedDataArray);
+            })
     }
 
     return (
@@ -147,13 +163,13 @@ function Municipality() {
                                 </Container>
                             </ContetentContainer>
 
-                            <GraphContainer maxWidth="xl">
+                            <GraphContainer>
                                 <GraphText variant="h4">Gráficos</GraphText>
 
-                                <Grid container rowSpacing={4}>
+                                <Grid container rowSpacing={4} maxWidth="xl" justifyContent="center">
                                     <Grid item xs={12}>
                                         <GraphText variant="h6">Porcentagem de empregos por indústria - 2017</GraphText>
-                                        
+
                                         <Treemap config={{
                                             data: industryDataArray,
                                             groupBy: 'id',
@@ -165,7 +181,7 @@ function Municipality() {
 
                                     <Grid item xs={12}>
                                         <GraphText variant="h6">Porcentagem de pessoas empregadas por categoria - 2017</GraphText>
-                                        
+
                                         <Treemap config={{
                                             data: ocupationDataArray,
                                             groupBy: 'id',
@@ -176,8 +192,8 @@ function Municipality() {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <GraphText variant="h6">Matrículas por cursos técnicos</GraphText>
-                                        
+                                        <GraphText variant="h6">Matrículas por cursos técnicos - 2017</GraphText>
+
                                         <Treemap config={{
                                             data: studentsDataArray,
                                             groupBy: 'id',
@@ -187,113 +203,16 @@ function Municipality() {
                                         }} />
                                     </Grid>
 
-                                    {/* <Grid item xs={12} sm={4}>
-                                        <BarChart config={{
-                                            data: [
-                                                {
-                                                    id: 'alpha',
-                                                    x: 4,
-                                                    y: 7
-                                                },
-                                                {
-                                                    id: 'alpha',
-                                                    x: 5,
-                                                    y: 25
-                                                },
-                                                {
-                                                    id: 'alpha',
-                                                    x: 6,
-                                                    y: 13
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 4,
-                                                    y: 17
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 5,
-                                                    y: 8
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 6,
-                                                    y: 13
-                                                }
-                                            ],
-                                            groupBy: 'id',
-                                            height: 300
-                                        }} />
-                                    </Grid>
-
-                                    <Grid item xs={12} sm={4}>
+                                    <Grid item xs={12} md={6}>
+                                        <GraphText variant="h6">Porcentagem de empregos por grau de escolaridade - 2017</GraphText>
                                         <Pie config={{
-                                            data: [
-                                                {
-                                                    id: 'alpha',
-                                                    value: 29
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    value: 10
-                                                },
-                                                {
-                                                    id: 'gamma',
-                                                    value: 2
-                                                },
-                                                {
-                                                    id: 'delta',
-                                                    value: 29
-                                                },
-                                                {
-                                                    id: 'eta',
-                                                    value: 25
-                                                }
-                                            ],
+                                            data: employeeStudentsArray,
                                             groupBy: 'id',
                                             sum: 'value',
-                                            height: 300
+                                            height: 400,
+                                            legend: true,
                                         }} />
                                     </Grid>
-
-                                    <Grid item xs={12} sm={4}>
-                                        <LinePlot config={{
-                                            data: [
-                                                {
-                                                    id: 'alpha',
-                                                    x: 4,
-                                                    y: 7
-                                                },
-                                                {
-                                                    id: 'alpha',
-                                                    x: 5,
-                                                    y: 25
-                                                },
-                                                {
-                                                    id: 'alpha',
-                                                    x: 6,
-                                                    y: 13
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 4,
-                                                    y: 17
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 5,
-                                                    y: 8
-                                                },
-                                                {
-                                                    id: 'beta',
-                                                    x: 6,
-                                                    y: 13
-                                                }
-                                            ],
-                                            groupBy: 'id',
-                                            height: 300
-                                        }} />
-                                    </Grid> */}
                                 </Grid>
                             </GraphContainer>
                         </>
