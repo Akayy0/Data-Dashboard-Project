@@ -9,7 +9,11 @@ import { Treemap, BarChart, Pie, LinePlot } from "d3plus-react";
 import { InfoCard } from './components';
 import { getUrls } from '../../modules';
 
-import { CityTitle, ContetentContainer, GraphContainer, GraphText, InfoText, LoadingContainer, LoadingElement, LoadingText, StateCard, StateText, TitleGraphText, Wrapper } from './Municipality.style';
+import {
+    CityTitle, ContetentContainer, GraphContainer, GraphText,
+    InfoText, LoadingContainer, LoadingElement, LoadingText,
+    StateCard, StateText, TitleGraphText, Wrapper
+} from './Municipality.style';
 
 function Municipality() {
     const params = useParams();
@@ -42,24 +46,19 @@ function Municipality() {
     }, [params])
 
     function fetchData() {
-
-
         Promise.all(urls)
             .then(resp => Promise.all(resp.map(r => r.json())))
             .then(result => {
-
                 const imageObjectIndex: any = result.findIndex((item) => item.photos);
                 setBackgroundImage(result[imageObjectIndex].photos[Math.floor(Math.random() * (29) + 1)].src.original);
                 result.splice(imageObjectIndex, 1);
-
-                console.log(result);
 
                 const industryArray = _.take(result[5].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const ocupationArray = _.take(result[6].data.sort((a: any, b: any) => b[5] - a[5]), 10);
                 const studentsArray = _.take(result[7].data.sort((a: any, b: any) => b[3] - a[3]), 10);
                 const employeeStudentsArray = _.take(result[8].data.sort((a: any, b: any) => b[6] - a[6]), 10);
-                const imp = result[9].data.filter((item: any) => item[0] === 'import')
-                const exp = result[9].data.filter((item: any) => item[0] === 'export')
+                const imp = result[9].data.filter((item: any) => item[0] === 'import');
+                const exp = result[9].data.filter((item: any) => item[0] === 'export');
 
                 const impAndExpEvolve = result[10].data.filter((item: any) => item[1] >= 2015);
 
@@ -70,10 +69,10 @@ function Municipality() {
                 let expEvolveArray: any[] = [];
 
                 impEvolve.forEach((item: any) => {
-                    impEvolveArray.push({ id: "Valor em Reais", x: item[1], y: item[2] })
+                    impEvolveArray.push({ id: "Valor em Reais", x: item[1], y: item[2] });
                 })
                 expEvolve.forEach((item: any) => {
-                    expEvolveArray.push({ id: "Valor em Reais", x: item[1], y: item[2] })
+                    expEvolveArray.push({ id: "Valor em Reais", x: item[1], y: item[2] });
                 })
 
                 const exportArray = _.take(exp.sort((a: any, b: any) => b[3] - a[3]), 5);
@@ -104,7 +103,7 @@ function Municipality() {
             .then((res) => res.json())
             .then((response) => {
                 dataArray.forEach((item) => {
-                    formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                    formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] });
                 });
 
                 setIndustryDataArray(formatedDataArray);
@@ -119,10 +118,10 @@ function Municipality() {
             .then((res) => res.json())
             .then((response) => {
                 expArray.forEach((item: any) => {
-                    formatedExpArray.push({ id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3] })
+                    formatedExpArray.push({ id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3] });
                 });
                 impArray.forEach((item: any) => {
-                    formatedImpArray.push({ id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3] })
+                    formatedImpArray.push({ id: response[item[2]].name_pt, x: item[4].toLocaleString('pt-br') + "Kg", y: item[3] });
                 });
 
                 setExpDataArray(formatedExpArray);
@@ -137,7 +136,7 @@ function Municipality() {
             .then((res) => res.json())
             .then((response) => {
                 dataArray.forEach((item) => {
-                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] });
                 });
 
                 setOcupationDataArray(formatedDataArray);
@@ -151,7 +150,7 @@ function Municipality() {
             .then((res) => res.json())
             .then((response) => {
                 dataArray.forEach((item) => {
-                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] });
                 });
 
                 setStudentsDataArray(formatedDataArray);
@@ -165,7 +164,7 @@ function Municipality() {
             .then((res) => res.json())
             .then((response) => {
                 dataArray.forEach((item) => {
-                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] })
+                    if (response[item[0]]) formatedDataArray.push({ id: response[item[0]].name_pt, value: item[5] });
                 });
 
                 setEmployeeStudentsArray(formatedDataArray);
@@ -191,7 +190,7 @@ function Municipality() {
                                     <StateText>Minas Gerais</StateText>
                                 </StateCard>
 
-                                <InfoText variant="overline" >Dados coletados no período de 2008 - 2016</InfoText>
+                                <InfoText variant="overline" >Dados coletados no período de 2008 - 2017</InfoText>
 
                                 <Container maxWidth="lg">
                                     <Grid container spacing={4}>
