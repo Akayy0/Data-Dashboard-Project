@@ -17,7 +17,7 @@ function Header() {
                     Mapas
                 </DefaultText>
                 <Logo src={LogoTriangulo} alt="logo-dataminas" onClick={() => redirectRoute("home") } />
-                <DefaultText variant="text" onClick={() => redirectRoute('sobre')}>
+                <DefaultText variant="text" onClick={() => redirectRoute('about')}>
                     Sobre
                 </DefaultText>
             </FlexDiv>

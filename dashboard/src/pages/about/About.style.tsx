@@ -47,7 +47,10 @@ export const TextAbout = styled(Typography)(({ theme }) => ({
     fontWeight: "bold",
     width: "100%",
     textAlign: "center",
-    paddingBottom: 40,
+    paddingBottom: 20,
+    paddingRight:50 ,
+    paddingLeft:50,
+
     [theme.breakpoints.down(340)]: {
         fontSize: "32px"
     }
