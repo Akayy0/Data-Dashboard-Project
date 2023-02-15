@@ -5,6 +5,7 @@ import LogoTriangulo from './triangulos-logo.png';
 import OuroPreto from './ouro-preto.png';
 import LogoDataMinasWhite from "./dataminas-logo-branco.png";
 import LogoDataMinasBlack from "./dataminas-logo-preto.png";
+import MgMap from './mgMap.png';
 
 export {
     LogoMinas,
@@ -13,5 +14,6 @@ export {
     LogoTriangulo,
     OuroPreto,
     LogoDataMinasWhite,
-    LogoDataMinasBlack
+    LogoDataMinasBlack,
+    MgMap
 }
