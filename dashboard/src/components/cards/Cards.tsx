@@ -4,11 +4,12 @@ import { CardStyled, CardTitle } from "./Cards.style";
 interface ICard{
     title: string;
     image: string;
+    onClick: () => void;
 }
 
-function Cards({title, image}:ICard) {
+function Cards({title, image, onClick}:ICard) {
     return (
-        <CardStyled>
+        <CardStyled onClick={onClick}>
             <CardActionArea>
                 <CardMedia
                     component="img"

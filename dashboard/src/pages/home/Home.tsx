@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Autocomplete, Box, Container, Grid, IconButton, Paper, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Search, Menu } from "@mui/icons-material";
-// @ts-ignore
-import { LinePlot } from "d3plus-react";
 
 import { Cards } from "../../components";
-import { LogoDataMinasWhite } from "../../assets";
+import { LogoDataMinasWhite, MgMap } from "../../assets";
 import { IApiResponse, IAutocomplete } from "./Home.interface";
 
 import { LogoImage, Subtitle, Wrapper, BoxImage, SearchContainer, AutoCompleteTextField } from "./Home.style";
@@ -14,43 +12,6 @@ import { LogoImage, Subtitle, Wrapper, BoxImage, SearchContainer, AutoCompleteTe
 function Home() {
 	const theme = useTheme();
 	const navigate = useNavigate();
-
-	const methods = {
-		height: 400,
-		data: [
-			{
-				id: 'alpha',
-				x: 4,
-				y: 7
-			},
-			{
-				id: 'alpha',
-				x: 5,
-				y: 25
-			},
-			{
-				id: 'alpha',
-				x: 6,
-				y: 13
-			},
-			{
-				id: 'beta',
-				x: 4,
-				y: 17
-			},
-			{
-				id: 'beta',
-				x: 5,
-				y: 8
-			},
-			{
-				id: 'beta',
-				x: 6,
-				y: 13
-			}
-		],
-		size: (d: any) => d.value
-	};
 
 	const cardsInfo = [
 		{ title: "Ouro Preto", image: "https://direcional.com.br/wp-content/uploads/2021/08/minas-gerais.jpg" },
@@ -100,6 +61,12 @@ function Home() {
 		} else {
 			alert("Selecione um município para pesquisar.");
 		}
+	}
+
+	function onCardClick(cityName: string) {
+		const city = cities.find((item) => item.name === cityName);
+
+		if(city) navigate(`/city/${city.name}/${city.label}`);
 	}
 
 	return (
@@ -175,7 +142,7 @@ function Home() {
 									</Box>
 
 									<Box mt={2}>
-										<LinePlot config={methods} height="100%" />
+										<img src={MgMap} width="100%" alt="Imagem do mapa de Minas Gerais" />
 									</Box>
 
 								</Grid>
@@ -191,6 +158,7 @@ function Home() {
 									<Cards
 										title={card.title}
 										image={card.image}
+										onClick={() => onCardClick(card.title)}
 									/>
 								</Grid>
 							)}

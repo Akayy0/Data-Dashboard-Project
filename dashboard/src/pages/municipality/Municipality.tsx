@@ -222,7 +222,11 @@ function Municipality() {
                                             groupBy: 'id',
                                             sum: 'value',
                                             legend: false,
-                                            height: 400
+                                            height: 400,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
 
                                     </Grid>
@@ -235,7 +239,11 @@ function Municipality() {
                                             groupBy: 'id',
                                             legend: false,
                                             sum: 'value',
-                                            height: 400
+                                            height: 400,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
                                     </Grid>
 
@@ -247,7 +255,11 @@ function Municipality() {
                                             groupBy: 'id',
                                             legend: false,
                                             sum: 'value',
-                                            height: 400
+                                            height: 400,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
                                     </Grid>
 
@@ -258,6 +270,10 @@ function Municipality() {
                                             groupBy: 'id',
                                             sum: 'value',
                                             height: 400,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
                                     </Grid>
 
@@ -268,7 +284,11 @@ function Municipality() {
                                             data: impDataArray,
                                             groupBy: 'id',
                                             height: 400,
-                                            barPadding: 4
+                                            barPadding: 4,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
                                     </Grid>
 
@@ -279,7 +299,11 @@ function Municipality() {
                                             data: expDataArray,
                                             groupBy: 'id',
                                             height: 400,
-                                            barPadding: 4
+                                            barPadding: 4,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
                                     </Grid>
 
@@ -289,7 +313,11 @@ function Municipality() {
                                         <LinePlot config={{
                                             data: impDataYearArray,
                                             groupBy: 'id',
-                                            height: 400
+                                            height: 400,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
 
                                     </Grid>
@@ -299,7 +327,11 @@ function Municipality() {
                                         <LinePlot config={{
                                             data: expDataYearArray,
                                             groupBy: 'id',
-                                            height: 400
+                                            height: 400,
+                                            noDataHTML: `
+                                                <div style="height: 100%; display: flex; align-items: center; justify-content: center">
+                                                    <h3 style="color: ${theme.palette.primary.dark}">Não há dados para este município.</h3>
+                                                </div>`
                                         }} />
                                     </Grid>
                                 </Grid>
