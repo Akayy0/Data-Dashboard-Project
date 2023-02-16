@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import PlaceIcon from '@mui/icons-material/Place';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Divider, Grid, useTheme } from '@mui/material';
 // @ts-ignore
 import { Treemap, BarChart, Pie, LinePlot } from "d3plus-react";
@@ -18,6 +18,7 @@ import {
 function Municipality() {
     const params = useParams();
     const theme = useTheme();
+    const navigate = useNavigate();
 
     const urls = getUrls(params.cityId ?? "");
 
@@ -171,6 +172,7 @@ function Municipality() {
             })
     }
 
+
     return (
         <Wrapper>
             {
@@ -185,9 +187,9 @@ function Municipality() {
                         <>
                             <ContetentContainer sx={{ backgroundImage: `url('${backgroundImage}')` }}>
                                 <CityTitle>{params.cityName}</CityTitle>
-                                <StateCard>
+                                <StateCard onClick={() => navigate(`/mapas/${params.cityName}`)}>
                                     <PlaceIcon sx={{ color: "black", marginRight: 0.8 }} />
-                                    <StateText>Minas Gerais</StateText>
+                                    <StateText>VER NO MAPA</StateText>
                                 </StateCard>
 
                                 <InfoText variant="overline" >Dados coletados no período de 2008 - 2017</InfoText>

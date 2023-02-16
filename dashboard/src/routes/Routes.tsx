@@ -2,7 +2,7 @@ import React from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 
 import { MainLayout } from '../layouts';
-import { Home, Municipality, About } from '../pages';
+import { Home, Municipality, About, Maps } from '../pages';
 
 function Routes() {
     const routes = useRoutes([
@@ -10,7 +10,7 @@ function Routes() {
             element: <MainLayout />,
             children: [
                 { path: '/home', element: <Home /> },
-                { path: '/mapas', element: <Home /> },
+                { path: '/mapas/:cityName', element: <Maps /> },
                 { path: '/about', element: <About />},
                 { path: '/city/:cityName/:cityId', element: <Municipality /> }
             ]

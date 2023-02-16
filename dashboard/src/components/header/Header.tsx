@@ -13,10 +13,10 @@ function Header() {
     return (
         <HeaderContainer>
             <FlexDiv>
-                <DefaultText variant="text" onClick={() => redirectRoute('mapas')}>
+                <DefaultText variant="text" onClick={() => redirectRoute('mapas/Minas%20Gerais')}>
                     Mapas
                 </DefaultText>
-                <Logo src={LogoTriangulo} alt="logo-dataminas" onClick={() => redirectRoute("home") } />
+                <Logo src={LogoTriangulo} alt="logo-dataminas" onClick={() => redirectRoute("home")} />
                 <DefaultText variant="text" onClick={() => redirectRoute('about')}>
                     Sobre
                 </DefaultText>
