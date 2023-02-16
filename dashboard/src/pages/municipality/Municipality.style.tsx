@@ -16,16 +16,21 @@ export const LoadingContainer = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.info.main
 }));
 
-export const StateCard = styled(Box)(() => ({
+export const StateCard = styled(Box)(({ theme }) => ({
     display: "flex",
     borderRadius: '3px',
+    cursor: "pointer",
     marginTop: 24,
     marginBottom: 48,
     backgroundColor: "#879bf5",
     padding: "5px 10px 5px 8px",
     textShadow: 'none',
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    transition: "0.2s",
+    ':hover': {
+        backgroundColor: theme.palette.info.light,
+    }
 }));
 
 export const StateText = styled(Typography)(() => ({

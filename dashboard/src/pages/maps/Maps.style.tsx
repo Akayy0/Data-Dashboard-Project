@@ -12,6 +12,7 @@ export const Wrapper = styled(Container)(() => ({
 export const MapsTitle = styled(Typography)(({ theme }) => ({
     fontSize: 48,
     fontWeight: 700,
+    textTransform: "uppercase",
     color: theme.palette.primary.main,
     textShadow: "0 2px 6px #000"
 }));
