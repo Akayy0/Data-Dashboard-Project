@@ -1,5 +1,3 @@
-# Data-Dashboard-Project
-
 # Projeto Dashboard - DataMinas
 
 Neste repositório será criado um projeto de site de informações sobre as cidades de Minas Gerais utilizando React e Typescript como tecnologias e fazendo uso da API do DataViva. 
