@@ -12,7 +12,13 @@ export function getUrls(idMunicipality: string) {
         fetch(`http://api.dataviva.info/secex/type/year/?municipality=${idMunicipality}`)
     ];
 
-    requests.push(fetch("https://api.pexels.com/v1/search?query=nature?locale=pt-br?orientation=landscape&color=13223A&per_page=30"));
+    requests.push(fetch("https://api.pexels.com/v1/search?query=nature?locale=pt-br?orientation=landscape&color=13223A&per_page=30",{
+        method: 'GET',
+        headers: {
+            Authorization: "ZfpCuTPwaCqC4S8OhRSbWAggX7VaLJxEjMFWNStyZUubLSM9POQ4Kjhs"
+        }
+
+    }));
 
     urls.forEach((url) => {
         requests.push(url)

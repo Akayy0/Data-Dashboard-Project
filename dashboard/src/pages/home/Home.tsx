@@ -15,7 +15,7 @@ function Home() {
 
 	const cardsInfo = [
 		{ title: "Ouro Preto", image: "https://direcional.com.br/wp-content/uploads/2021/08/minas-gerais.jpg" },
-		{ title: "Felício dos Santos", image: "https://arquidiamantina.org.br/home/wp-content/uploads/2019/08/Matriz-Sagrado-Coracao-Felicio-dos-Santos-e1658842317362.jpg" },
+		{ title: "Felício dos Santos", image: "https://www.ferias.tur.br/imgs/3110/feliciodossantos/g_felicio-dos-santos-mg-matriz-do-sagrado-coracao-de-jesus-fotofacebook-2.jpg" },
 		{ title: "Diamantina", image: "https://viagenseoutrashistorias.com.br/wp-content/uploads/2022/09/dicas-diamantina-MG-942x529.jpg" },
 		{ title: "Jaboticatubas", image: "https://1.bp.blogspot.com/-XlFAlTUbB8U/YENibK4b7xI/AAAAAAAA4tI/So_C1QgTjeMXYV3RckuvSFFzW6Q9l-pGgCLcBGAsYHQ/s1080/jabotictu.jpg" },
 		{ title: "Esmeraldas", image: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Igreja_de_Santa_Quit%C3%A9ria_-_Esmeraldas_-_MG_-_panoramio.jpg" },
